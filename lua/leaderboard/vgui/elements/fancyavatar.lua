@@ -39,18 +39,6 @@ function PANEL:Paint(w, h)
     render.SetStencilCompareFunction( STENCIL_NEVER )
     render.SetStencilReferenceValue( 1 )
 
-    -- draw your mask here, diamond, circle or whatever.
-    // local circle = {
-    // }
-    // for a = 1, 3 do -- For extra aa
-    //     for i = 0, 360, a do
-    //         local _i = i * math.pi/360;
-    //         local t = { x = math.cos(_i)*(15)+w/2.1, y = math.sin(_i)*(15)+h/2 }
-
-    //         table.insert(circle, t)
-    //     end
-    // end
-
     surface.SetDrawColor(Color(225, 0, 0))
     draw.NoTexture()
     surface.DrawPoly(MakeCirclePoly(w/2, h/2, self.MaskSize - 4, nil, 0, 360, 32))

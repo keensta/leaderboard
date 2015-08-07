@@ -4,7 +4,7 @@ include( "leaderboard/config/lb_config.lua" )
 include( "leaderboard/vgui/elements/switch.lua" )
 include( "leaderboard/vgui/elements/rankbar.lua" )
 
-local X = 400
+local X = 100
 local Y = 75
 local isOpen = false
 
@@ -275,7 +275,7 @@ function createTree(ply, lbMain)
 	--Control menu end
 
 	boards = {}
-	catY = {} --We Do this so they all stick together nicly otherwise they will all use the same Y value and not line up correctly
+	catY = {} --We do this so they all stick together nicly otherwise they will all use the same Y value and not line up correctly
 
 	for k, v in pairs(LB.boardRef) do
 		local labelB = nil
@@ -330,17 +330,6 @@ function createTree(ply, lbMain)
 end
 
 --[[--------------------------------------------------
-		updateInfoBar - steamid, username, rankpos, score, topscore
----------------------------------------------------]]
-local infoBarMade = false
-
-local function updateInfoBar(steamid, username, rankPos, score, topscore, lbMain)
-
-	--Not used YET
-
-end
-
---[[--------------------------------------------------
 		updateBoard - selectedBoard, lbMain, ply, intilizeGui, tmp
 ---------------------------------------------------]]
 function updateBoard(selectedBoard, lbMain, ply, intilizeGui, tmp)
@@ -382,7 +371,7 @@ function updateBoard(selectedBoard, lbMain, ply, intilizeGui, tmp)
 		surface.DrawRect(0, 0, w, h)
 
 		surface.SetTextColor(LB.RankBarText)
-		surface.SetFont("LB_Board")
+		surface.SetFont("LB_Board_Bold")
 
 		--Postion Character
 		surface.SetTextPos(12.5, h - 20)
@@ -390,10 +379,10 @@ function updateBoard(selectedBoard, lbMain, ply, intilizeGui, tmp)
 
 		--Name Text
 		surface.SetTextPos(120, h - 20)
-		surface.DrawText("Name")
+		surface.DrawText("Username")
 
 		--Ranking Reasons
-		draw.SimpleText(selectedBoard, "LB_Board", 430, h - 20, LB.RankBarText, TEXT_ALIGN_CENTER)
+		draw.SimpleText(selectedBoard, "LB_Board_Bold", 430, h - 20, LB.RankBarText, TEXT_ALIGN_CENTER)
 	end
 
 	--Start grabbing board data
@@ -467,15 +456,15 @@ function updateView(SPanel, loading, scores, ply)
 			rankB:SetBoard(lastOpened)
 
 			barHolder[rankB] = true
-    		SPanel:AddItem(rankB)
+	    		SPanel:AddItem(rankB)
 
-    		if ( pos <= 3 ) then
-    			Ypos = Ypos + 35
-    		else
-    			Ypos = Ypos + 27
-    		end
+	    		if ( pos <= 3 ) then
+	    			Ypos = Ypos + 35
+	    		else
+	    			Ypos = Ypos + 27
+	    		end
 
-    		pos = pos + 1
+	    		pos = pos + 1
 		end
 	end
 
@@ -518,6 +507,12 @@ function getDescription(selectedOption)
 	return LB.Descriptions[selectedOption] or "Hmmm, It seem's nobody has set this description correctly."
 end
 
+--[[--------------------------------------------------
+		updateData - pos, score
+
+		pos -> Postion on board of the player
+		score -> Current players score on the board
+---------------------------------------------------]]
 function updateData(pos, score)
 	local rankDesc = guiElements["RankDesc"]
 	local scoreDesc = guiElements["ScoreDesc"]

@@ -1,18 +1,21 @@
 --Data conversion script for https://scriptfodder.com/scripts/view/446
 include( "score.lua" )
 
+oldLeaderboard = false -- Converts HandsomeMatts old leaderboard data to my new system
+oldData = false  --Converts all old SteamIDS to steamid64, new system now uses steamid64 so it may never clash on ids :)
+convert = false -- If convert is true and oldData & oldLeaderboard are false then it converts Tommys Modification so the below files to new file
+		-- system. 
 
-beenDone = false
-oldLeaderboard = false
-convert = false
+local files = { ["m16.txt"] = "M16 Kills", }
 
-local files = {  }
+
+beenDone = false --Don't touch
 
 function convertData()
 
 	if ( convert == false ) then return end
  	
- 	if ( oldLeaderboard == false && beenDone == false) then
+ 	if ( oldLeaderboard == false && oldData == false && beenDone == false) then
  		beenDone = true
  		timer.Simple(3, function()
  			for key, val in pairs(files) do
@@ -31,6 +34,36 @@ function convertData()
  		end )
  	end
 	
+	
+ 	if ( oldData == true ) then
+ 		
+ 		if ( beenDone == false ) then
+ 			dataTable = {}
+
+			if ( file.Exists("leaderboardata/leaderboard.txt", "DATA") ) then
+				dataTable = util.JSONToTable(file.Read("leaderboarddata/leaderboard.txt"))
+			end
+
+			if ( dataTable != nil  ) then
+				for board, _ in pairs(dataTable) do
+					for tmp, _ in pairs(dataTable[board]) do
+						for userid, score in pairs(dataTable[board][tmp]) do
+							dataTable[board][tmp][util.SteamIDTo64(userid)] = score
+						end
+					end
+				end
+				
+				file.Write("leaderboarddata/leaderbaoard.txt", util.TableToJSON(datatable))
+			end
+
+			beenDone = true
+
+			resetLoadData()
+			loadData(nil)
+ 		end
+
+ 	end
+
 	if ( oldLeaderboard == true ) then
 		Msg(tostring(sql.TableExists("playerlbdata")), "\n")
 	

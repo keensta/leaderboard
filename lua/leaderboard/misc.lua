@@ -182,7 +182,7 @@ function timeToStr( time )
     return string.format( "%02id %02ih %02im %02is", d, h, m, s )
 end
 
---Hold nickname data
+--Hold nickname data for quick access 
 nickNames = {}
 
 net.Receive("LB_SendNickname", function(le)

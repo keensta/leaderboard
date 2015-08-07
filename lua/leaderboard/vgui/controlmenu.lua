@@ -305,99 +305,99 @@ function createBoardEditting(controlMenu, ply)
 		)
 	end
 
-	// local boardCopyDesc = vgui.Create("DLabel", panel)
-	// boardCopyDesc:SetSize(270,25)
-	// boardCopyDesc:SetPos(5,50)
-	// boardCopyDesc:SetColor( Color(0,0,0) )
-	// boardCopyDesc:SetText("Board to Copy")
+	local boardCopyDesc = vgui.Create("DLabel", panel)
+	boardCopyDesc:SetSize(270,25)
+	boardCopyDesc:SetPos(5,50)
+	boardCopyDesc:SetColor( Color(0,0,0) )
+	boardCopyDesc:SetText("Board to Copy")
 
-	// local boardCopyDesc1 = vgui.Create("DLabel", panel)
-	// boardCopyDesc1:SetSize(270,25)
-	// boardCopyDesc1:SetPos(130,50)
-	// boardCopyDesc1:SetColor( Color(0,0,0) )
-	// boardCopyDesc1:SetText("Board getting Data")
+	local boardCopyDesc1 = vgui.Create("DLabel", panel)
+	boardCopyDesc1:SetSize(270,25)
+	boardCopyDesc1:SetPos(130,50)
+	boardCopyDesc1:SetColor( Color(0,0,0) )
+	boardCopyDesc1:SetText("Board getting Data")
 
-	// local boardComboBox = vgui.Create("DComboBox", panel)
-	// boardComboBox:SetSize(120, 20)
-	// boardComboBox:SetPos(5, 75)
-	// boardComboBox:SetValue("Board")
+	local boardComboBox = vgui.Create("DComboBox", panel)
+	boardComboBox:SetSize(120, 20)
+	boardComboBox:SetPos(5, 75)
+	boardComboBox:SetValue("Board")
 
-	// local boardComboBox2 = vgui.Create("DComboBox", panel)
-	// boardComboBox2:SetSize(120, 20)
-	// boardComboBox2:SetPos(130, 75)
-	// boardComboBox2:SetValue("Board")
+	local boardComboBox2 = vgui.Create("DComboBox", panel)
+	boardComboBox2:SetSize(120, 20)
+	boardComboBox2:SetPos(130, 75)
+	boardComboBox2:SetValue("Board")
 
-	// for k, v in pairs(LB.boardRef) do
-	// 	boardComboBox:AddChoice(k, k)
-	// 	boardComboBox:AddChoice(k .. " -M", k)
-	// 	boardComboBox2:AddChoice(k, k)
-	// 	boardComboBox2:AddChoice(k .. " -M", k)
-	// end
+	for k, v in pairs(LB.boardRef) do
+		boardComboBox:AddChoice(k, k)
+		boardComboBox:AddChoice(k .. " -M", k)
+		boardComboBox2:AddChoice(k, k)
+		boardComboBox2:AddChoice(k .. " -M", k)
+	end
 	
-	// boardComboBox.OnSelect = function(panel, index, value, data)
-	// 	selectedValue = value
-	// 	selectedData = data
-	// end
+	boardComboBox.OnSelect = function(panel, index, value, data)
+		selectedValue = value
+		selectedData = data
+	end
 
-	// boardComboBox2.OnSelect = function(panel, index2, value2, data2)
-	// 	selectedValue2 = value2
-	// 	selectedData2 = data2
-	// end
+	boardComboBox2.OnSelect = function(panel, index2, value2, data2)
+		selectedValue2 = value2
+		selectedData2 = data2
+	end
 
-	// local copyButton =  vgui.Create("DButton", panel)
-	// copyButton:SetSize(100, 20)
-	// copyButton:SetPos(5, 100)
-	// copyButton:SetText("Just Copy")
+	local copyButton =  vgui.Create("DButton", panel)
+	copyButton:SetSize(100, 20)
+	copyButton:SetPos(5, 100)
+	copyButton:SetText("Just Copy")
 
-	// copyButton.DoClick = function()
-	// 	net.Start("LB_CopyBoard")
-	// 		net.WriteString(selectedData)
+	copyButton.DoClick = function()
+		net.Start("LB_CopyBoard")
+			net.WriteString(selectedData)
 
-	// 		if ( string.sub(selectedValue, -2) == "-M" ) then
-	// 			net.WriteBit(true)
-	// 		else
-	// 			net.WriteBit(false)
-	// 		end
+			if ( string.sub(selectedValue, -2) == "-M" ) then
+				net.WriteBit(true)
+			else
+				net.WriteBit(false)
+			end
 
-	// 		net.WriteString(selectedData2)
+			net.WriteString(selectedData2)
 
-	// 		if ( string.sub(selectedValue2, -2) == "-M" ) then
-	// 			net.WriteBit(true)
-	// 		else
-	// 			net.WriteBit(false)
-	// 		end
+			if ( string.sub(selectedValue2, -2) == "-M" ) then
+				net.WriteBit(true)
+			else
+				net.WriteBit(false)
+			end
 
-	// 		net.WriteBit(false)
-	// 	net.SendToServer()
-	// end
+			net.WriteBit(false)
+		net.SendToServer()
+	end
 
 
-	// local copyDeleteButton =  vgui.Create("DButton", panel)
-	// copyDeleteButton:SetSize(100, 20)
-	// copyDeleteButton:SetPos(130, 100)
-	// copyDeleteButton:SetText("Copy & Delete")
+	local copyDeleteButton =  vgui.Create("DButton", panel)
+	copyDeleteButton:SetSize(100, 20)
+	copyDeleteButton:SetPos(130, 100)
+	copyDeleteButton:SetText("Copy & Delete")
 
-	// copyDeleteButton.DoClick = function()
-	// 	net.Start("LB_CopyBoard")
-	// 		net.WriteString(selectedData)
+	copyDeleteButton.DoClick = function()
+		net.Start("LB_CopyBoard")
+			net.WriteString(selectedData)
 
-	// 		if ( string.sub(selectedValue, -2) == "-M" ) then
-	// 			net.WriteBit(true)
-	// 		else
-	// 			net.WriteBit(false)
-	// 		end
+			if ( string.sub(selectedValue, -2) == "-M" ) then
+				net.WriteBit(true)
+			else
+				net.WriteBit(false)
+			end
 
-	// 		net.WriteString(selectedData2)
+			net.WriteString(selectedData2)
 
-	// 		if ( string.sub(selectedValue2, -2) == "-M" ) then
-	// 			net.WriteBit(true)
-	// 		else
-	// 			net.WriteBit(false)
-	// 		end
+			if ( string.sub(selectedValue2, -2) == "-M" ) then
+				net.WriteBit(true)
+			else
+				net.WriteBit(false)
+			end
 
-	// 		net.WriteBit(false)
-	// 	net.SendToServer()
-	// end
+			net.WriteBit(true)
+		net.SendToServer()
+	end
 
 end
 

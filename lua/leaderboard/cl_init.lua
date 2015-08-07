@@ -2,66 +2,66 @@ include( "config/lb_config.lua" )
 include( "leaderboard/vgui/guiMenu.lua")
 
 --Create all font's for VGUI
-hook.Add("Initialize", "CreateF", function()
+hook.Add("Initialize", "CreateFont", function()
 	--Main title name
 	surface.CreateFont( "LB_Title", {
-		font = "Dense-Regular",
+		font = "Geometria-Light",
 		size = 26,
 		weight = 500,
 	})
 
 	--Menu Title (Ex: PvP, Misc, Fun)
 	surface.CreateFont( "LB_Menu_Title", {
-		font = "Dense-Regular",
+		font = "SourceCodePro-Medium",
 		size = 23,
 		weight = 545,
 	})
 
 	--Menu Item (Ex: Innocent Kills, Traitor Kills, Headshots, TimePlayed)
 	surface.CreateFont( "LB_Menu_Item", {
-		font = "Dense-Regular",
+		font = "SourceCodePro-Light",
 		size = 16,
 		weight = 530,
 	})
 
-	--All descriptive text so username being 
+	--All descriptive text
 	surface.CreateFont( "LB_Desc", {
-		font = "Dense-Regular",
+		font = "SourceCodePro-Light",
 		size = 16,
 		weight = 535,
 	})
 
-	--Descriptive text title if the descriptive text has one that is.
+	--Descriptive text title if the descriptive text has one that is. (UNUSED)
 	surface.CreateFont( "LB_Desc_Info", {
 		font = "Dense-Regular",
 		size = 23,
 		weight = 590,
 	})
 
-	--Slightly larger version of LB_Desc
+	--Slightly larger version of LB_Desc (UNUSED)
 	surface.CreateFont( "LB_Desc_L", {
 		font = "Dense-Regular",
 		size = 19,
 		weight = 550,
 	})
 
-	--This is for the namne of the selected board so "Innocent Kills or Traitor Kills" Etc
+	--This is for the name of the selected board so "Innocent Kills or Traitor Kills" Etc
 	surface.CreateFont( "LB_Board_Title", {
-		font = "Dense-Regular",
+		font = "Geometria-Light",
 		size = 23,
 		weight = 550,
 	})
 
 	--Used for the rankbar gui to display information in the ranking part 
 	surface.CreateFont( "LB_Board", {
-		font = "Dense-Regular",
+		font = "SourceCodePro-Light",
 		size = 18,
 		weight = 530,
 	})
 
 	--Bolder version of LB_Board
 	surface.CreateFont( "LB_Board_Bold", {
-		font = "Dense-Regular",
+		font = "SourceCodePro-Medium",
 		size = 15,
 		weight = 650,
 	})
