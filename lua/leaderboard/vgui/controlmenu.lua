@@ -288,7 +288,7 @@ function createBoardEditting(controlMenu, ply)
 
 	resetTemp.DoClick = function()
 		Derma_Query("Do you really want to reset monthly data?", "Reset Monthly Data",
-				"Yes", function() net.Start("LB_ResetTmpBoard") net.SendToServer() end,
+				"Yes", function() net.Start("LB_ResetAllData") net.SendToServer() end,
 				"No", function() end
 		)
 	end
@@ -300,7 +300,7 @@ function createBoardEditting(controlMenu, ply)
 
 	resetAll.DoClick = function()
 		Derma_Query("Do you really want to remove monthly data?", "Reset Monthly Data",
-				"Yes", function() net.Start("LB_ResetData") net.SendToServer() end,
+				"Yes", function() net.Start("LB_ResetAllData") net.SendToServer() end,
 				"No", function() end
 		)
 	end

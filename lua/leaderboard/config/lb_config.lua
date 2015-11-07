@@ -69,25 +69,3 @@ LB.MenuHighlight = Color(53, 152, 219)
 	LB.SwitchBg = Color(70, 70, 70, 225)
 	LB.SwitchText = Color(255, 255, 255, 205)
 	LB.SwitchActive = Color(39, 174, 97)
-
-
--- New colors
-
---Backgrounds Main
-
-	--Header
-	LB.HeaderBackground = Color(228, 77, 80)
-	--Button bar
-	LB.ButtonBarBackground = Color(139, 139, 139, 180)
-	--Leaderboard Data 
-	LB.DataBackground = Color(93, 98, 98, 180)
-
---Text Colors
-	LB.TitleColor = Color(255, 255, 255) -- Color for LB.LeaderboardTitle (Title in top left)
-	
-
---Custom Elements
-	--RankBar
-	LB.RankHighlight = Color(163, 77, 80)
-	LB.RankBarText = Color(255, 255, 255)
-	LB.RankBartextBg = Color(93, 98, 98, 180)

@@ -25,8 +25,8 @@ function convertData()
 					tableData = util.JSONToTable(file.Read("leaderboardData/"..key))
 
 					for pos, data in pairs(tableData) do
-						updateScore(util.SteamIDFrom64(data["SteamID"]), data["score"], val, "false", true)
-						MsgN("Id: ", util.SteamIDFrom64(data["SteamID"]), " Score: ", data["score"])
+						updateScore(data["SteamID"], data["score"], val, "false", true)
+						MsgN("Id: ", data["SteamID"], " Score: ", data["score"])
 					end
 				end
 			end
@@ -36,6 +36,8 @@ function convertData()
 	
 	
  	if ( oldData == true ) then
+	 
+	 	MsgN("Doing OldData Converstion")
  		
  		if ( beenDone == false ) then
  			dataTable = {}
@@ -48,7 +50,7 @@ function convertData()
 				for board, _ in pairs(dataTable) do
 					for tmp, _ in pairs(dataTable[board]) do
 						for userid, score in pairs(dataTable[board][tmp]) do
-							dataTable[board][tmp][util.SteamIDTo64(userid)] = score
+							dataTable[board][tmp][userid] = score
 						end
 					end
 				end
@@ -56,6 +58,7 @@ function convertData()
 				file.Write("leaderboarddata/leaderbaoard.txt", util.TableToJSON(datatable))
 			end
 
+			MsgN("Old Converstion been done")
 			beenDone = true
 
 			resetLoadData()

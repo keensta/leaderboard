@@ -13,6 +13,12 @@ local nicknames = {}
 
 function DH:LoadData() 
 	
+	--Load Nickname data
+
+	if ( file.Exists("leaderboarddata/nicknames.txt", "DATA") ) then
+		nicknames = util.JSONToTable(file.Read("leaderboarddata/nicknames.txt"))
+	end
+	
 	--Load Leaderboard data
 
 	if ( file.Exists("leaderboarddata/leaderboard.txt", "DATA") ) then
@@ -26,24 +32,18 @@ function DH:LoadData()
 		banlist = util.JSONToTable(file.Read("leaderboarddata/banlist.txt"))
 	end
 
-	--Load Nickname data
-
-	if ( file.Exists("leaderboarddata/nicknames.txt", "DATA") ) then
-		nicknames = util.JSONToTable(file.Read("leaderboarddata/nicknames.txt"))
-	end
-
 end
 
 function DH:SaveData()
+
+	--Save Nicknames data
+	file.Write("leaderboarddata/nicknames.txt", util.TableToJSON(nicknames))
 
 	--Save Leaderboard data
 	file.Write("leaderboarddata/leaderboard.txt", util.TableToJSON(sb))
 
 	--Save Banlist data
 	file.Write("leaderboarddata/banlist.txt", util.TableToJSON(banlist))
-
-	--Save Nicknames data
-	file.Write("leaderboarddata/nicknames.txt", util.TableToJSON(nicknames))
 
 end
 

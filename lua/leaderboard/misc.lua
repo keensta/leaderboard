@@ -187,7 +187,9 @@ nickNames = {}
 
 net.Receive("LB_SendNickname", function(le)
     local dataLength = net.ReadUInt(32)
-    local tableDecompressed = util.Decompress(net.ReadData(dataLength))
+    local data = net.ReadData(dataLength)
+    local tableDecompressed = util.Decompress(data)
+    
     nickNames = util.JSONToTable(tableDecompressed)
 end )
 

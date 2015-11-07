@@ -64,13 +64,14 @@ function loadData(ply)
 		updateData()
 		isLoaded = true
 	end
+	
+	DH:SetNickName(ply:SteamID(), ply:Nick())
 end
 
 hook.Add("PlayerInitialSpawn", "LB_LoadData", loadData)
 
-local function saveData()
+function saveData()
 	timer.Simple("2", function()
-		
 		if ( isLoaded ) then
 			DH:SaveData()
 		end
@@ -78,16 +79,15 @@ local function saveData()
 	end )
 end
 
-if ( LB.UseTimer ) then
-	timer.Create( "SaveData", LB.TimerTime, 0, saveData)
-else
-	hook.Add("TTTEndRound", "LB_SaveData", saveData)
-end
+
+hook.Add("TTTEndRound", "LB_SaveData", saveData)
+
 
 function updateData()
 	local tableNick = DH:GetNicknames()
 	local stringNick = util.TableToJSON(tableNick)
 	local compressedNick = util.Compress(stringNick)
+	
 
 	net.Start("LB_SendNickname")
 		net.WriteUInt(#compressedNick, 32)
@@ -105,6 +105,14 @@ local function resetData()
 end
 
 net.Receive("LB_ResetData", resetData)
+
+local function resetAllData()
+	local temp = convertBit(net.ReadBit())
+	
+	
+end
+
+net.Receive("LB_ResetAllData", resetData)
 
 local function getBanList(len, client)
 	local banlist = DH:GetBanList()
@@ -206,30 +214,11 @@ end
 
 --END Score section
 
---Time section
---This is a temp table only used to store start times.
-playerStartTime = {}
-
-function updatePlayerTime(userid, tmp)
-	local time = getCurrentPlaytime(userid, tmp)
-	local newTime = time + RealTime() - getStartTime(userid)
-
-	DH:SetScore(userid, newTime, false, "TimePlayed", tmp)
-end
-
-function getCurrentPlaytime(userid, tmp)
-	return DH:GetData(userid, "TimePlayed", tmp)
-end
-
-function startTime(userid, time)
-	playerStartTime[userid] = time
-end
-
-local function getStartTime(userid)
-	return playerStartTime[userid]
-end
 
 --END Time section
+
+
+--Misc Method
 
 function convertBit(bitD)
 	if ( bitD ==  1 ) then

@@ -1,4 +1,4 @@
-include( "score.lua" )
+include( "leaderboard/data/score.lua" )
 include( "leaderboard/config/cb_config.lua" )
 
  --Stop's score being counted in PreRound/AfterRound
@@ -20,16 +20,16 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 
 		Using short names to save time with recode.
 	]]--
-
+	print("Picked up kill")
 	--If round isn't active no score is counted (In Pre or End round)
 	if ( countScore == false ) then return end
 	
 	--Banned users are no longer tracked - TODO
-	--if ( isBanned(a:SteamID64()) == true ) then return end
+	--if ( isBanned(a:SteamID()) == true ) then return end
 
 	if ( k == a ) then
-		incrementScore(k:SteamID64(), "Suicides", "false")
-		incrementScore(k:SteamID64(), "Suicides", "true")
+		incrementScore(k:SteamID(), "Suicides", "false")
+		incrementScore(k:SteamID(), "Suicides", "true")
 	end
 
 	if ( a:IsPlayer() == false ) then return end
@@ -39,35 +39,37 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 
 		--Checks if Killed is a Detective or Innocent and adds score accordingly 
 		if ( k:IsDetective() == true ) then
-			incrementScore(a:SteamID64(), "Detective Kills", "false")
-			incrementScore(a:SteamID64(), "Detective Kills", "true")
+			incrementScore(a:SteamID(), "Detective Kills", "false")
+			incrementScore(a:SteamID(), "Detective Kills", "true")
 		else
-			incrementScore(a:SteamID64(), "Innocent Kills", "false")
-			incrementScore(a:SteamID64(), "Innocent Kills", "true")
+			incrementScore(a:SteamID(), "Innocent Kills", "false")
+			incrementScore(a:SteamID(), "Innocent Kills", "true")
 		end
-
+		
+		print("Is Traitor", " hitgroup ", k:LastHitGroup())
 		--Checks if kill is headshot
-		if ( k.lastHitGroup == HITGROUP_HEAD ) then
-			incrementScore(a:SteamID64(), "Headshot Kills", "false")
-			incrementScore(a:SteamID64(), "Headshot Kills", "true")
+		if ( k:LastHitGroup() == HITGROUP_HEAD ) then
+			print("Traitor headshot")
+			incrementScore(a:SteamID(), "Headshot Kills", "false")
+			incrementScore(a:SteamID(), "Headshot Kills", "true")
 		end
 
 		--Knife kills by Traitor
 		if ( i:GetClass() == "weapon_ttt_knife" or i:GetClass() == "ttt_knife_proj" ) then
-			incrementScore(a:SteamID64(), "Knife Kills", "false")
-			incrementScore(a:SteamID64(), "Knife Kills", "true")
+			incrementScore(a:SteamID(), "Knife Kills", "false")
+			incrementScore(a:SteamID(), "Knife Kills", "true")
 		end
 
 		--C4 Kills by Traitor
 		if ( i:GetClass() == "ttt_c4" ) then
-			incrementScore(a:SteamID64(), "C4 Kills", "false")
-			incrementScore(a:SteamID64(), "C4 Kills", "true")
+			incrementScore(a:SteamID(), "C4 Kills", "false")
+			incrementScore(a:SteamID(), "C4 Kills", "true")
 		end
 
 		--If a traitor crowbars the innocent to death or kills him with it for final blow. 
 		if ( i:GetClass() == "weapon_zm_improvised" or i:GetClass() == "weapon_crowbar" or string.find(i:GetClass(), "lightsaber") ) then
-			incrementScore(a:SteamID64(), "Crowbar Kills", "false")
-			incrementScore(a:SteamID64(), "Crowbar Kills", "true")
+			incrementScore(a:SteamID(), "Crowbar Kills", "false")
+			incrementScore(a:SteamID(), "Crowbar Kills", "true")
 		end
 		
 		--Custom boards check
@@ -81,8 +83,8 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 				end
 
 				if ( doesContain(weapon, cBoard.class) ) then
-					incrementScore(a:SteamID64(), cBoard.boardname, "false")
-					incrementScore(a:SteamID64(), cBoard.boardname, "true")
+					incrementScore(a:SteamID(), cBoard.boardname, "false")
+					incrementScore(a:SteamID(), cBoard.boardname, "true")
 				end
 			end
 		end
@@ -91,31 +93,33 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 	--If killed is a traitor and killer isn't a traitor
 	if ( k:IsTraitor() == true and a:IsTraitor() == false ) then
 		--Add's traitor kill against Innocents name
-		incrementScore(a:SteamID64(), "Traitor Kills", "false")
-		incrementScore(a:SteamID64(), "Traitor Kills", "true")
+		incrementScore(a:SteamID(), "Traitor Kills", "false")
+		incrementScore(a:SteamID(), "Traitor Kills", "true")
 
+		print("Isn't traitor", " hitgroup ", k:LastHitGroup())
 		--Checks if kill is headshot
-		if ( k.lastHitGroup == HITGROUP_HEAD ) then
-			incrementScore(a:SteamID64(), "Headshot Kills", "false")
-			incrementScore(a:SteamID64(), "Headshot Kills", "true")
+		if ( k:LastHitGroup() == HITGROUP_HEAD ) then
+			print("innocent headshot")
+			incrementScore(a:SteamID(), "Headshot Kills", "false")
+			incrementScore(a:SteamID(), "Headshot Kills", "true")
 		end
 
 		--If Innocent knifes a T they get a point
 		if ( i:GetClass() == "weapon_ttt_knife" or i:GetClass() == "ttt_knife_proj" ) then
-			incrementScore(a:SteamID64(), "Knife Kills", "false")
-			incrementScore(a:SteamID64(), "Knife Kills", "true")
+			incrementScore(a:SteamID(), "Knife Kills", "false")
+			incrementScore(a:SteamID(), "Knife Kills", "true")
 		end
 
 		--If a Innocent c4's a traitor they get a point per T kill (Maybe negative for innocent kills???).
 		if ( i:GetClass() == "ttt_c4" ) then
-			incrementScore(a:SteamID64(), "C4 Kills", "false")
-			incrementScore(a:SteamID64(), "C4 Kills", "true")
+			incrementScore(a:SteamID(), "C4 Kills", "false")
+			incrementScore(a:SteamID(), "C4 Kills", "true")
 		end
 
 		--If a Innocent crowbars the traitor to death or kills him with it for final blow. 
 		if ( i:GetClass() == "weapon_zm_improvised" or  i:GetClass() == "weapon_crowbar") then
-			incrementScore(a:SteamID64(), "Crowbar Kills", "false")
-			incrementScore(a:SteamID64(), "Crowbar Kills", "true")
+			incrementScore(a:SteamID(), "Crowbar Kills", "false")
+			incrementScore(a:SteamID(), "Crowbar Kills", "true")
 		end
 
 		--Custom boards check
@@ -129,8 +133,8 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 				end
 
 				if ( doesContain(weapon, cBoard.class) ) then
-					incrementScore(a:SteamID64(), cBoard.boardname, "false")
-					incrementScore(a:SteamID64(), cBoard.boardname, "true")
+					incrementScore(a:SteamID(), cBoard.boardname, "false")
+					incrementScore(a:SteamID(), cBoard.boardname, "true")
 				end
 			end
 		end
@@ -148,27 +152,12 @@ hook.Add("DoPlayerDeath", "DmgInfo Death", function(ply, attacker, dmginfo)
 	--No need to log Innocent and Traitor kills will be logged by other handler
 
 	if ( dmginfo:IsDamageType(DMG_BLAST) and a ~= nil and a:IsPlayer()) then
-		incrementScore(a:SteamID64(), "Explosive Kills", "false")
-		incrementScore(a:SteamID64(), "Explosive Kills", "true")
+		incrementScore(a:SteamID(), "Explosive Kills", "false")
+		incrementScore(a:SteamID(), "Explosive Kills", "true")
 	end
 	
 end )
 
-
---Make sure we get when they first enter the server and store the time they started
-hook.Add("PlayerInitialSpawn", "PlayerTimeStart", function(ply)
-	startTime( ply:SteamID64(), RealTime() )
-end )
-
---At end of each round check online players and update there time played
-hook.Add("TTTEndRound", "PlayerUpdateTime", function(result)
-	for _,ply in pairs(player.GetAll()) do
-		if ( ply:IsConnected() ) then
-			updatePlayerTime(ply:SteamID64(), "false")
-			updatePlayerTime(ply:SteamID64(), "true")
-		end
-	end
-end )
 
 --Total score
 
@@ -180,8 +169,8 @@ end )
 //     if ( rounds_left <= 0 or time_left <= 0 ) then
 //     	for _, ply in pairs(player.GetAll()) do
 //     		if ( ply:IsConnected() ) then
-//     			updateScore(ply:SteamID64(), ply:Frags(), "Total Score", "false", true)
-//     			updateScore(ply:SteamID64(), ply:Frags(), "Total Score", "true", true)
+//     			updateScore(ply:SteamID(), ply:Frags(), "Total Score", "false", true)
+//     			updateScore(ply:SteamID(), ply:Frags(), "Total Score", "true", true)
 //     		end
 //     	end
 //     end

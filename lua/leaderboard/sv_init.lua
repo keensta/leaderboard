@@ -36,11 +36,4 @@ if ( file.IsDir("leaderboardData", "DATA") == true ) then
 end
 
 --[[TODO:
-
-Comment all Code                                                        [--------------]
-Redesign controlmenu                                                    [#######--]  (With new gui redesgin this might need redesigning again we will see - Maybe intergrate it into new design gui rather then extra interface pop up)
-Re redesign Gui - In Progress                                              [-----------]
-Change steamid into steamid64 (Write code to auto convert current data)  Complete (In Data.lua Doesn't auto start needs user interaction)
-Create search bar section (Allows comparing of users as well)           [--------------] (With new Re Redesign of gui this will be implemented, have to also implement server code to do searching and return data to client)
-
 ]]--
