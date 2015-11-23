@@ -33,6 +33,7 @@ function contains(t, value)
     return false
 end
 
+--Found this on the internet somewere credit to who ever it is that made this.
 function MakeCirclePoly(originX,originY,radius,thick,startAng,distAng,iter)
     startAng = math.rad(startAng)
     distAng = math.rad(distAng)
