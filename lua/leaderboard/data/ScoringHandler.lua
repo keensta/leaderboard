@@ -21,8 +21,8 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 		Using short names to save time with recode.
 	]]--
 	
-	print("LB Tracked: ", k:SteamID(), "-> is K ", a:SteamID, "-> is A", i:GetClass(), "-> is I")
-	print("LB Tracked: ", " K is T -> ", k:IsTraitor, " A is T -> ", a:IsTraitor)
+	print( "LB Tracked: ", k:SteamID(), "-> is K ", a:SteamID(), "-> is A", i:GetClass(), "-> is I" )
+	print( "LB Tracked: ", " K is T -> ", k:IsTraitor(), " A is T -> ", a:IsTraitor() )
 	
 	--If round isn't active no score is counted (In Pre or End round)
 	if ( countScore == false ) then return end
