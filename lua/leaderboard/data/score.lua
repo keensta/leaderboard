@@ -74,6 +74,7 @@ function saveData()
 	timer.Simple("2", function()
 		if ( isLoaded ) then
 			DH:SaveData()
+			DH:UpdateBoard()
 		end
 		
 	end )

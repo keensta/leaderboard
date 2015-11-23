@@ -20,7 +20,10 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 
 		Using short names to save time with recode.
 	]]--
-	print("Picked up kill")
+	
+	print("LB Tracked: ", k:SteamID(), "-> is K ", a:SteamID, "-> is A", i:GetClass(), "-> is I")
+	print("LB Tracked: ", " K is T -> ", k:IsTraitor, " A is T -> ", a:IsTraitor)
+	
 	--If round isn't active no score is counted (In Pre or End round)
 	if ( countScore == false ) then return end
 	
@@ -46,10 +49,8 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 			incrementScore(a:SteamID(), "Innocent Kills", "true")
 		end
 		
-		print("Is Traitor", " hitgroup ", k:LastHitGroup())
 		--Checks if kill is headshot
 		if ( k:LastHitGroup() == HITGROUP_HEAD ) then
-			print("Traitor headshot")
 			incrementScore(a:SteamID(), "Headshot Kills", "false")
 			incrementScore(a:SteamID(), "Headshot Kills", "true")
 		end
@@ -96,7 +97,6 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 		incrementScore(a:SteamID(), "Traitor Kills", "false")
 		incrementScore(a:SteamID(), "Traitor Kills", "true")
 
-		print("Isn't traitor", " hitgroup ", k:LastHitGroup())
 		--Checks if kill is headshot
 		if ( k:LastHitGroup() == HITGROUP_HEAD ) then
 			print("innocent headshot")
@@ -160,21 +160,21 @@ end )
 
 
 --Total score
-
-// hook.Add("Initialize", "totalScore", function()
-//     local rounds_left = math.max(0, GetGlobalInt("ttt_rounds_left", 6) - 1)
-//     local time_left = math.max(0, ((GetGlobalInt("ttt_time_limit_minutes") or 60) * 60) - CurTime())
+--[[
+ hook.Add("Initialize", "totalScore", function()
+     local rounds_left = math.max(0, GetGlobalInt("ttt_rounds_left", 6) - 1)
+     local time_left = math.max(0, ((GetGlobalInt("ttt_time_limit_minutes") or 60) * 60) - CurTime())
 
     
-//     if ( rounds_left <= 0 or time_left <= 0 ) then
-//     	for _, ply in pairs(player.GetAll()) do
-//     		if ( ply:IsConnected() ) then
-//     			updateScore(ply:SteamID(), ply:Frags(), "Total Score", "false", true)
-//     			updateScore(ply:SteamID(), ply:Frags(), "Total Score", "true", true)
-//     		end
-//     	end
-//     end
-// end )
+      if ( rounds_left <= 0 or time_left <= 0 ) then
+     	for _, ply in pairs(player.GetAll()) do
+     		if ( ply:IsConnected() ) then
+     			updateScore(ply:SteamID(), ply:Frags(), "Total Score", "false", true)     			updateScore(ply:SteamID(), ply:Frags(), "Total Score", "true", true)
+    		end     	
+		end
+     end
+ end )
+ --]]
 
 --Misc Methods
 

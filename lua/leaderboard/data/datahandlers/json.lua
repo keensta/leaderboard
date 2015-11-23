@@ -47,6 +47,11 @@ function DH:SaveData()
 
 end
 
+--Because JSon handles a TMPSb which is the main source data for mid round checks we need to make sure its populated....
+function DH:UpdateBoard()
+	tempsb = table.Copy(sb)
+end
+
 --Live means if it want's upto date, data which you don't want when showing leaderboards in middle of game
 function DH:GetTable(boardname, temp, live)
 
