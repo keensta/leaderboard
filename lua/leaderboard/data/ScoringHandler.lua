@@ -21,6 +21,8 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 		Using short names to save time with recode.
 	]]--
 	
+	if ( a:IsPlayer() == false ) then return end	
+	
 	print( "LB Tracked: ", k:SteamID(), "-> is K ", a:SteamID(), "-> is A", i:GetClass(), "-> is I" )
 	print( "LB Tracked: ", " K is T -> ", k:IsTraitor(), " A is T -> ", a:IsTraitor() )
 	
@@ -34,8 +36,6 @@ hook.Add("PlayerDeath", "LB_TrackScore", function(k, i, a)
 		incrementScore(k:SteamID(), "Suicides", "false")
 		incrementScore(k:SteamID(), "Suicides", "true")
 	end
-
-	if ( a:IsPlayer() == false ) then return end
 	
 	--If killed isn't a traitor and killer is a traitor 
 	if ( k:IsTraitor() == false and a:IsTraitor() == true ) then
